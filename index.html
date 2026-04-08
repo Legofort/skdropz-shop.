@@ -49,8 +49,14 @@
         
         .tag-row { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
         .tag { font-size: 0.7rem; text-transform: uppercase; color: var(--accent-color); font-weight: 700; }
-        .size-tag { font-size: 0.7rem; background: #333; padding: 2px 6px; border-radius: 4px; }
-
+       .size-tag { 
+    font-size: 0.7rem; 
+    background: #333; 
+    padding: 2px 8px; /* Added more room */
+    border-radius: 4px; 
+    white-space: nowrap; /* This stops it from wrapping to a second line */
+    display: inline-block;
+}
         .product-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
         .price { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 1rem; display: block;}
 
@@ -153,7 +159,14 @@
                     if (cols.length < 6) return;
 
                     // Updated to match: Name, Category, Size, Color, Price, ImageURL, Status
-                    const [name, category, size, color, price, img, status] = cols;
+         // This cleans up the data and makes sure spaces don't break the text
+const name = cols[0]?.trim();
+const category = cols[1]?.trim().toLowerCase();
+const size = cols[2]?.trim(); // This will now grab the full "L / M"
+const color = cols[3]?.trim();
+const price = cols[4]?.trim();
+const img = cols[5]?.trim();
+const status = cols[6]?.trim();
                     const isSold = status && status.toLowerCase().includes('sold');
 
                     const card = `

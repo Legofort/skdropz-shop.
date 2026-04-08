@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sk.dropz | Newport News Streetwear</title>
-    <!-- Google Fonts: Inter for clean UI, Bungee for heavy headers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -13,262 +12,59 @@
         :root {
             --bg-color: #0a0a0a;
             --card-bg: #141414;
-            --accent-color: #c0392b; /* Streetwear Red */
+            --accent-color: #c0392b; 
             --text-main: #ffffff;
             --text-dim: #a0a0a0;
             --transition: all 0.3s ease;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        nav { position: sticky; top: 0; z-index: 1000; background: rgba(10, 10, 10, 0.95); border-bottom: 1px solid #222; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; text-transform: lowercase; }
+        .logo span { color: var(--accent-color); }
+        .nav-links a { color: var(--text-main); text-decoration: none; margin-left: 1.5rem; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; transition: var(--transition); }
+        .nav-links a:hover { color: var(--accent-color); }
 
-        /* --- NAVBAR --- */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.95);
-            border-bottom: 1px solid #222;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 5%; background: linear-gradient(to bottom, rgba(10,10,10,0), rgba(10,10,10,1)), url('https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&q=80&w=2070'); background-size: cover; background-position: center; }
+        .hero h1 { font-size: clamp(3rem, 10vw, 6rem); font-weight: 900; line-height: 0.9; margin-bottom: 1rem; text-transform: uppercase; }
+        .hero p { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 2rem; max-width: 600px; }
+        .hero-btns { display: flex; gap: 1rem; }
 
-        .logo {
-            font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: -1px;
-            text-transform: lowercase;
-        }
-
-        .logo span {
-            color: var(--accent-color);
-        }
-
-        .nav-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 5%;
-            background: linear-gradient(to bottom, rgba(10,10,10,0), rgba(10,10,10,1)),
-                        url('https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&q=80&w=2070'); /* Placeholder street bg */
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-weight: 900;
-            line-height: 0.9;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-dim);
-            margin-bottom: 2rem;
-            max-width: 600px;
-        }
-
-        .hero-btns {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            font-weight: 800;
-            cursor: pointer;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
+        .btn { padding: 1rem 2rem; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; text-decoration: none; transition: var(--transition); }
         .btn-primary { background: var(--accent-color); color: white; }
-        .btn-primary:hover { background: #a33025; transform: translateY(-3px); }
         .btn-outline { background: transparent; border: 2px solid white; color: white; }
-        .btn-outline:hover { background: white; color: black; transform: translateY(-3px); }
 
-        /* --- SHOP SECTION --- */
         #shop { padding: 5rem 5%; }
+        .filters { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
+        .filter-btn { background: var(--card-bg); border: 1px solid #333; color: var(--text-dim); padding: 0.5rem 1.5rem; border-radius: 20px; cursor: pointer; transition: var(--transition); }
+        .filter-btn.active, .filter-btn:hover { border-color: var(--accent-color); color: white; }
 
-        .filters {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: var(--card-bg);
-            border: 1px solid #333;
-            color: var(--text-dim);
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            border-color: var(--accent-color);
-            color: white;
-        }
-
-        .shop-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background: var(--card-bg);
-            border: 1px solid #222;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .product-card:hover { border-color: #444; transform: translateY(-5px); }
-
-        .product-img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            background: #222;
-            object-fit: cover;
-        }
-
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
+        .product-card { background: var(--card-bg); border: 1px solid #222; overflow: hidden; transition: var(--transition); position: relative; }
+        .product-card.sold-out { opacity: 0.6; filter: grayscale(0.8); }
+        .product-img { width: 100%; aspect-ratio: 1/1; background: #222; object-fit: cover; }
         .product-info { padding: 1.5rem; }
-
-        .tag {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: var(--accent-color);
-            font-weight: 700;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
+        
+        .tag-row { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .tag { font-size: 0.7rem; text-transform: uppercase; color: var(--accent-color); font-weight: 700; }
+        .size-tag { font-size: 0.7rem; background: #333; padding: 2px 6px; border-radius: 4px; }
 
         .product-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
-
         .price { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 1rem; display: block;}
 
-        .buy-btn {
-            display: block;
-            text-align: center;
-            background: white;
-            color: black;
-            text-decoration: none;
-            padding: 0.8rem;
-            font-weight: 800;
-            font-size: 0.8rem;
-            transition: var(--transition);
-        }
+        .buy-btn { display: block; text-align: center; background: white; color: black; text-decoration: none; padding: 0.8rem; font-weight: 800; font-size: 0.8rem; transition: var(--transition); }
+        .buy-btn.sold { background: #333; color: #777; pointer-events: none; }
+        .buy-btn:hover:not(.sold) { background: var(--accent-color); color: white; }
 
-        .buy-btn:hover { background: var(--accent-color); color: white; }
-
-        /* --- REQUEST SECTION --- */
-        #requests {
-            padding: 5rem 5%;
-            background: #0f0f0f;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: start;
-        }
-
-        .form-container h2 { font-size: 2.5rem; margin-bottom: 1rem; text-transform: uppercase;}
-        
+        #requests { padding: 5rem 5%; background: #0f0f0f; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
         .request-form { display: grid; gap: 1rem; }
+        .request-form input { background: #1a1a1a; border: 1px solid #333; padding: 1rem; color: white; width: 100%; }
+        .log-container { background: #000; padding: 1.5rem; border-left: 4px solid var(--accent-color); font-family: 'Courier New', monospace; font-size: 0.8rem; height: 300px; overflow-y: auto; }
+        .log-entry { margin-bottom: 1rem; color: #00ff41; }
 
-        .request-form input, .request-form select {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            padding: 1rem;
-            color: white;
-            width: 100%;
-        }
-
-        .request-form input:focus { border-color: var(--accent-color); outline: none; }
-
-        .log-container {
-            background: #000;
-            padding: 1.5rem;
-            border-left: 4px solid var(--accent-color);
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.8rem;
-            height: 400px;
-            overflow-y: auto;
-        }
-
-        .log-entry { margin-bottom: 1rem; color: #00ff41; /* Matrix green for code look */ }
-
-        /* --- ABOUT & CONTACT --- */
-        #about { padding: 5rem 5%; max-width: 800px; margin: 0 auto; text-align: center; }
-        #about h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
-            padding: 0 5%;
-        }
-
-        .contact-card {
-            background: var(--card-bg);
-            padding: 2rem;
-            text-align: center;
-            border: 1px solid #222;
-        }
-
-        .contact-card h3 { margin-bottom: 0.5rem; color: var(--accent-color); }
-
-        footer {
-            padding: 3rem 5%;
-            text-align: center;
-            border-top: 1px solid #222;
-            color: var(--text-dim);
-            font-size: 0.8rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            #requests { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 3.5rem; }
-            .nav-links { display: none; }
-        }
+        footer { padding: 3rem 5%; text-align: center; border-top: 1px solid #222; color: var(--text-dim); }
     </style>
 </head>
 <body>
@@ -278,14 +74,13 @@
         <div class="nav-links">
             <a href="#shop">Shop</a>
             <a href="#requests">Requests</a>
-            <a href="#about">About</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
 
     <section class="hero">
         <h1>STREETWEAR<br>ARCHIVE</h1>
-        <p>Curated designer-style pieces from Newport News. Ships fast, packs clean. Real pressure only.</p>
+        <p>Newport News pressure. Fast shipping, clean packing.</p>
         <div class="hero-btns">
             <a href="#shop" class="btn btn-primary">Browse Shop</a>
             <a href="#requests" class="btn btn-outline">Submit Request</a>
@@ -301,120 +96,87 @@
             <button class="filter-btn" onclick="filterItems('accessories')">Accessories</button>
         </div>
 
+        <!-- THIS IS NOW EMPTY, THE SCRIPT WILL FILL IT -->
         <div class="shop-grid" id="shopGrid">
-            <!-- Sample Items: In a real app, these would come from an API or JSON file -->
-            <div class="product-card" data-category="accessories">
-                <img src="https://images.unsplash.com/photo-1611085510574-0676451e0691?auto=format&fit=crop&q=80&w=600" alt="Item" class="product-img">
-                <div class="product-info">
-                    <span class="tag">Accessories</span>
-                    <h3 class="product-name">Cross Pendant Silver</h3>
-                    <span class="price">$45.00</span>
-                    <a href="https://ig.me/m/sk.dropz" class="buy-btn">DM TO BUY</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="bottoms">
-                <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&q=80&w=600" alt="Item" class="product-img">
-                <div class="product-info">
-                    <span class="tag">Bottoms</span>
-                    <h3 class="product-name">Heavy Wash Denim Shorts</h3>
-                    <span class="price">$65.00</span>
-                    <a href="https://ig.me/m/sk.dropz" class="buy-btn">DM TO BUY</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="sets">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=600" alt="Item" class="product-img">
-                <div class="product-info">
-                    <span class="tag">Sets</span>
-                    <h3 class="product-name">Alo Aesthetics Sport Set</h3>
-                    <span class="price">$120.00</span>
-                    <a href="https://ig.me/m/sk.dropz" class="buy-btn">DM TO BUY</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="tops">
-                <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&q=80&w=600" alt="Item" class="product-img">
-                <div class="product-info">
-                    <span class="tag">Tops</span>
-                    <h3 class="product-name">CH Aesthetic Graphic Tee</h3>
-                    <span class="price">$55.00</span>
-                    <a href="https://ig.me/m/sk.dropz" class="buy-btn">DM TO BUY</a>
-                </div>
-            </div>
+            <div class="log-entry" style="grid-column: 1/-1; text-align: center;">Opening the vault...</div>
         </div>
     </section>
 
     <section id="requests">
         <div class="form-container">
             <h2>SOURCING REQUEST</h2>
-            <p style="color: var(--text-dim); margin-bottom: 2rem;">Can't find your size? Looking for a specific designer piece? Tell us what you need and we'll hunt it down.</p>
-            
             <form class="request-form" id="reqForm">
                 <input type="text" id="reqName" placeholder="Full Name" required>
-                <input type="text" id="reqIG" placeholder="Instagram Handle (@...)" required>
-                <input type="text" id="reqItem" placeholder="What item are you looking for?" required>
-                <input type="text" id="reqSize" placeholder="Size (e.g. M, 32, 10.5)" required>
-                <input type="text" id="reqBudget" placeholder="Your Budget (e.g. $100 - $150)" required>
-                
+                <input type="text" id="reqIG" placeholder="Instagram Handle" required>
+                <input type="text" id="reqItem" placeholder="Item Name" required>
+                <input type="text" id="reqSize" placeholder="Size" required>
+                <input type="text" id="reqBudget" placeholder="Budget" required>
                 <button type="submit" class="btn btn-primary">Submit Request</button>
             </form>
         </div>
-
         <div class="log-panel">
-            <h3 style="margin-bottom: 1rem; text-transform: uppercase; font-size: 0.8rem;">Live Submission Log</h3>
             <div class="log-container" id="jsonLog">
                 <div class="log-entry">// System Ready... Waiting for requests</div>
             </div>
-            
-            <!-- 
-                INNOVATION SPACE: DATA INTEGRATION
-                - [ ] Implement Google Sheets API fetch/post here
-                - [ ] Add Notion Database integration for order tracking
-                - [ ] Connect to Zapier for automated DM responses
-            -->
         </div>
     </section>
-
-    <section id="about">
-        <h2>THE PLUG</h2>
-        <p>18-year-old entrepreneur based in Newport News, VA. Started sk.dropz to bring high-end streetwear aesthetics and designer-style pieces to the local scene without the retail headache.</p>
-        <p style="margin-top: 1rem;">Everything is authenticated, packed clean, and shipped within 24-48 hours. I don't just sell clothes; I know the culture.</p>
-    </section>
-
-    <div class="contact-grid" id="contact">
-        <div class="contact-card">
-            <h3>Instagram</h3>
-            <p>@sk.dropz</p>
-        </div>
-        <div class="contact-card">
-            <h3>Depop</h3>
-            <p>@sktero</p>
-        </div>
-        <div class="contact-card">
-            <h3>Platforms</h3>
-            <p>eBay | Mercari | FB Marketplace</p>
-        </div>
-    </div>
-
-    <!-- 
-        INNOVATION SPACE: DASHBOARD & METRICS
-        - [ ] Add visitor counter (Simple Analytics)
-        - [ ] Add a "Hot Item" ticker using Depop trending data
-        - [ ] Implement a real-time 'Items Sold' counter
-    -->
 
     <footer>
-        <p>sk.dropz — Newport News, VA — Fast shipping. Real fits. No cap.</p>
-        <p style="margin-top: 10px; font-size: 0.6rem; opacity: 0.5;">© 2024 SK.DROPZ RESELLING. ALL RIGHTS RESERVED.</p>
+        <p>sk.dropz — Newport News, VA — Real fits. No cap.</p>
     </footer>
 
     <script>
-        // SHOP FILTERING LOGIC
+        // ==========================================
+        // STEP 1: PASTE YOUR CSV LINK BELOW
+        // ==========================================
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQW5IfU5vHunb_TAhTfgflH_J0JQPLWBhHgjRFOojZskFTed5g4ivg_I_CFNKN8hzpSRBxIafFFXCU9/pub?gid=1795026135&single=true&output=csv';
+
+        // Load Inventory from Google Sheets
+        async function loadInventory() {
+            try {
+                const response = await fetch(SHEET_URL);
+                const data = await response.text();
+                const rows = data.split('\n').slice(1); 
+                const grid = document.getElementById('shopGrid');
+                grid.innerHTML = ''; 
+
+                rows.forEach(row => {
+                    const cols = row.split(',');
+                    if (cols.length < 6) return;
+
+                    // Updated to match: Name, Category, Size, Color, Price, ImageURL, Status
+                    const [name, category, size, color, price, img, status] = cols;
+                    const isSold = status && status.toLowerCase().includes('sold');
+
+                    const card = `
+                        <div class="product-card ${isSold ? 'sold-out' : ''}" data-category="${category.trim().toLowerCase()}">
+                            <img src="${img.trim()}" alt="${name}" class="product-img">
+                            <div class="product-info">
+                                <div class="tag-row">
+                                    <span class="tag">${category.trim()}</span>
+                                    <span class="size-tag">SZ: ${size.trim()}</span>
+                                </div>
+                                <h3 class="product-name">${name.trim()}</h3>
+                                <p style="font-size: 0.8rem; color: #777; margin-bottom: 8px;">Color: ${color.trim()}</p>
+                                <span class="price">${price.trim()}</span>
+                                ${isSold ? 
+                                    '<a class="buy-btn sold">OUT OF STOCK</a>' : 
+                                    '<a href="https://ig.me/m/sk.dropz" class="buy-btn">DM TO BUY</a>'}
+                            </div>
+                        </div>
+                    `;
+                    grid.innerHTML += card;
+                });
+            } catch (error) {
+                console.error("Error loading sheet:", error);
+                document.getElementById('shopGrid').innerHTML = '<div class="log-entry">Error connecting to the vault.</div>';
+            }
+        }
+
+        // Filtering logic
         function filterItems(category) {
             const items = document.querySelectorAll('.product-card');
             const buttons = document.querySelectorAll('.filter-btn');
-            
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
@@ -427,38 +189,27 @@
             });
         }
 
-        // REQUEST FORM LOGGING
-        const reqForm = document.getElementById('reqForm');
-        const jsonLog = document.getElementById('jsonLog');
-
-        reqForm.addEventListener('submit', function(e) {
+        // Request Form Logic
+        document.getElementById('reqForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
-            const requestData = {
+            const data = {
                 name: document.getElementById('reqName').value,
-                ig_handle: document.getElementById('reqIG').value,
-                item_requested: document.getElementById('reqItem').value,
+                ig: document.getElementById('reqIG').value,
+                item: document.getElementById('reqItem').value,
                 size: document.getElementById('reqSize').value,
                 budget: document.getElementById('reqBudget').value,
-                timestamp: new Date().toISOString()
+                time: new Date().toLocaleTimeString()
             };
-
-            // Display in log
-            const newEntry = document.createElement('div');
-            newEntry.className = 'log-entry';
-            newEntry.innerHTML = `> SUBMISSION RECEIVED:<br>${JSON.stringify(requestData, null, 2)}`;
-            jsonLog.prepend(newEntry);
-
-            // Reset form
-            reqForm.reset();
-            alert("Request sent to the archive. DM @sk.dropz to confirm.");
-
-            /* 
-                INNOVATION SPACE: AUTO-SYNC
-                Future: Add fetch() call here to send 'requestData' to a 
-                Google Cloud Function or a custom backend to auto-update a spreadsheet.
-            */
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `> REQUEST RECEIVED:<br>${JSON.stringify(data, null, 2)}`;
+            document.getElementById('jsonLog').prepend(entry);
+            this.reset();
+            alert("Sent. DM @sk.dropz to lock it in.");
         });
+
+        // Initialize
+        loadInventory();
     </script>
 </body>
 </html>

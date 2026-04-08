@@ -139,80 +139,28 @@
         <p>sk.dropz — Newport News, VA — Real fits. No cap.</p>
     </footer>
 
-    <script>
-       <script>
-    // 1. MAKE SURE THIS LINK IS CORRECT
+<script>
+    // ==========================================
+    // 1. YOUR GOOGLE SHEET LINK
+    // ==========================================
     const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQW5IfU5vHunb_TAhTfgflH_J0JQPLWBhHgjRFOojZskFTed5g4ivg_I_CFNKN8hzpSRBxIafFFXCU9/pub?gid=1795026135&single=true&output=csv'; 
 
-    async function loadInventory() {
-        console.log("Starting to load the vault..."); // Debugging
-        try {
-            const response = await fetch(SHEET_URL);
-            const data = await response.text();
-            
-            console.log("Data received from Google Sheets.");
-
-            // Split by line breaks
-            const rows = data.split(/\r?\n/).slice(1); 
-            const grid = document.getElementById('shopGrid');
-            
-            if (rows.length === 0 || rows[0] === "") {
-                grid.innerHTML = '<div class="log-entry">Vault is empty. Add items to your sheet!</div>';
-                return;
-            }
-
-            grid.innerHTML = ''; // Clear loading message
-
-            rows.forEach((row, index) => {
-                const cols = row.split(',');
-                if (cols.length < 6) return;
-
-                // Simple column mapping
-                const name = cols[0]?.trim();
-                const category = cols[1]?.trim().toLowerCase();
-                const size = cols[2]?.trim(); 
-                const color = cols[3]?.trim();
-                const price = cols[4]?.trim();
-                const img = cols[5]?.trim();
-                const status = cols[6]?.trim() || "Available";
-
-                const isSold = status.toLowerCase().includes('sold');
-
-                const card = `
-                    <div class="product-card ${isSold ? 'sold-out' : ''}" data-category="${category}">
-                        <img src="${img}" alt="${name}" class="product-img">
-                        <div class="product-info">
-                            <div class="tag-row">
-                                <span class="tag">${category}</span>
-                                <span class="size-tag">${size}</span>
-                            </div>
-                            <h3 class="product-name">${name}</h3>
-                            <p style="font-size: 0.8rem; color: #777; margin-bottom: 8px;">Color: ${color}</p>
-                            <span class="price">${price}</span>
-                            ${isSold ? 
-                                '<a class="buy-btn sold">OUT OF STOCK</a>' : 
-                                '<a href="https://ig.me/m/sk.dropz" class="buy-btn">DM TO BUY</a>'}
-                        </div>
-                    </div>
-                `;
-                grid.innerHTML += card;
-            });
-            console.log("Vault loaded successfully.");
-        } catch (error) {
-            console.error("Critical Error:", error);
-            document.getElementById('shopGrid').innerHTML = '<div class="log-entry">Error connecting to the vault. Check your link.</div>';
-        }
-    }
-
-    // Filter Logic
+    // ==========================================
+    // 2. FILTER LOGIC (Moved to top to prevent errors)
+    // ==========================================
     function filterItems(category) {
+        console.log("Filtering for:", category);
         const items = document.querySelectorAll('.product-card');
         const buttons = document.querySelectorAll('.filter-btn');
+        
         buttons.forEach(btn => btn.classList.remove('active'));
-        if(event) event.target.classList.add('active');
+        if (event && event.target) {
+            event.target.classList.add('active');
+        }
 
         items.forEach(item => {
-            if (category === 'all' || item.getAttribute('data-category') === category) {
+            const itemCat = item.getAttribute('data-category');
+            if (category === 'all' || itemCat === category) {
                 item.style.display = 'block';
             } else {
                 item.style.display = 'none';
@@ -220,24 +168,102 @@
         });
     }
 
-    // Request Form
-    document.getElementById('reqForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const requestData = {
-            name: document.getElementById('reqName').value,
-            ig: document.getElementById('reqIG').value,
-            item: document.getElementById('reqItem').value,
-            size: document.getElementById('reqSize').value,
-            budget: document.getElementById('reqBudget').value,
-            timestamp: new Date().toLocaleTimeString()
-        };
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.innerHTML = `> SUBMISSION:<br>${JSON.stringify(requestData, null, 2)}`;
-        document.getElementById('jsonLog').prepend(entry);
-        this.reset();
-        alert("Request logged. DM @sk.dropz.");
-    });
+    // ==========================================
+    // 3. LOAD INVENTORY LOGIC
+    // ==========================================
+    async function loadInventory() {
+        const grid = document.getElementById('shopGrid');
+        console.log("Attempting to connect to the vault...");
 
-    loadInventory();
+        try {
+            if (!SHEET_URL || SHEET_URL.includes('PASTE_YOUR')) {
+                grid.innerHTML = '<div class="log-entry">Error: SHEET_URL is missing!</div>';
+                return;
+            }
+
+            const response = await fetch(SHEET_URL);
+            const data = await response.text();
+            
+            // Clean up rows and skip header
+            const rows = data.split(/\r?\n/).slice(1).filter(row => row.trim() !== "");
+            
+            if (rows.length === 0) {
+                grid.innerHTML = '<div class="log-entry">Vault is empty. Add items to your sheet!</div>';
+                return;
+            }
+
+            grid.innerHTML = ''; // Clear "Opening the vault..."
+
+            rows.forEach((row) => {
+                // Split by comma, but handle potential slashes/spaces
+                const cols = row.split(',');
+                if (cols.length < 6) return;
+
+                const name = cols[0] ? cols[0].trim() : "Unknown Item";
+                const category = cols[1] ? cols[1].trim().toLowerCase() : "all";
+                const size = cols[2] ? cols[2].trim() : "OS";
+                const color = cols[3] ? cols[3].trim() : "N/A";
+                const price = cols[4] ? cols[4].trim() : "Contact";
+                const img = cols[5] ? cols[5].trim() : "";
+                const status = cols[6] ? cols[6].trim().toLowerCase() : "available";
+
+                const isSold = status.includes('sold');
+
+                const card = `
+                    <div class="product-card ${isSold ? 'sold-out' : ''}" data-category="${category}">
+                        <img src="${img}" alt="${name}" class="product-img" onerror="this.src='https://via.placeholder.com/400?text=Image+Not+Found'">
+                        <div class="product-info">
+                            <div class="tag-row">
+                                <span class="tag">${category}</span>
+                                <span class="size-tag">SZ: ${size}</span>
+                            </div>
+                            <h3 class="product-name">${name}</h3>
+                            <p style="font-size: 0.8rem; color: #777; margin-bottom: 8px;">Color: ${color}</p>
+                            <span class="price">${price}</span>
+                            ${isSold ? 
+                                '<a class="buy-btn sold">OUT OF STOCK</a>' : 
+                                '<a href="https://ig.me/m/sk.dropz" target="_blank" class="buy-btn">DM TO BUY</a>'}
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+
+            console.log("Vault loaded. Ready to move.");
+
+        } catch (error) {
+            console.error("Critical Error:", error);
+            grid.innerHTML = '<div class="log-entry">Error: Could not reach Google Sheets. Check your link and "Publish to Web" settings.</div>';
+        }
+    }
+
+    // ==========================================
+    // 4. REQUEST FORM LOGIC
+    // ==========================================
+    const reqForm = document.getElementById('reqForm');
+    if (reqForm) {
+        reqForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const log = document.getElementById('jsonLog');
+            const requestData = {
+                name: document.getElementById('reqName').value,
+                ig: document.getElementById('reqIG').value,
+                item: document.getElementById('reqItem').value,
+                size: document.getElementById('reqSize').value,
+                budget: document.getElementById('reqBudget').value,
+                timestamp: new Date().toLocaleTimeString()
+            };
+            
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `> SUBMISSION RECEIVED:<br>${JSON.stringify(requestData, null, 2)}`;
+            log.prepend(entry);
+            
+            this.reset();
+            alert("Sourcing request logged. DM @sk.dropz to confirm.");
+        });
+    }
+
+    // START THE ENGINE
+    window.onload = loadInventory;
 </script>

@@ -196,26 +196,37 @@
         } catch (e) { grid.innerHTML = 'Vault connection failed.'; }
     }
 
-    // Initialize Formspree and Local Logging
-    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-    formspree('initForm', { 
-        formElement: '#reqForm', 
-        formId: 'mlgovyob',
-        onSuccess: function() {
-            // Log locally even if it succeeds on Formspree
-            const log = document.getElementById('jsonLog');
-            const entry = document.createElement('div');
-            entry.className = 'log-entry';
-            entry.innerHTML = `> SUCCESS: Request sent to Formspree.<br>> Timestamp: ${new Date().toLocaleTimeString()}`;
-            log.prepend(entry);
-            document.getElementById('reqForm').reset();
-        }
-    });
+<!-- THE FORM -->
+<form id="reqForm">
+    <div class="request-form">
+        <input type="text" name="name" id="reqName" placeholder="Full Name" required>
+        <input type="text" name="ig" id="reqIG" placeholder="Instagram Handle" required>
+        <input type="text" name="item" id="reqItem" placeholder="Item Name" required>
+        <input type="text" name="size" id="reqSize" placeholder="Size" required>
+        <input type="text" name="budget" id="reqBudget" placeholder="Budget" required>
+        <button type="submit" class="btn btn-primary" id="submitBtn">SUBMIT REQUEST</button>
+    </div>
+</form>
 
-    window.onload = loadInventory;
+<script>
+  // This wires up Formspree properly
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { 
+    formElement: '#reqForm', 
+    formId: 'mlgovyob',
+    onSuccess: function() {
+      // THIS UPDATES YOUR LOG BOX ON SUCCESS
+      const log = document.getElementById('jsonLog');
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.innerHTML = `> SUCCESS: Request sent to Vault.<br>> Item: ${document.getElementById('reqItem').value}`;
+      log.prepend(entry);
+      document.getElementById('reqForm').reset();
+      alert("Hype received. Check your DMs soon.");
+    }
+  });
 </script>
 <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
-</body>
 </html>
 </body>
 </html>
